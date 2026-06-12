@@ -21,15 +21,22 @@ void add_history(char command[]) {
  
 void show_history() {
     int start;
+    int i;
+    int index;
  
     if (history_count == 0) {
         return;
     }
  
-    start = history_count % HISTORY_SIZE + 1;
+    if (history_count < HISTORY_SIZE) {
+        start = 1;
+    } else {
+        start = history_count % HISTORY_SIZE + 1;
+    }
  
     for (int i = start; i > 0; i--) {
-        printf("%d %s\n", i, history[i]);
+        index = i;
+        printf("%d %s\n", i, history[index]);
     }
 }
  
