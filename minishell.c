@@ -105,6 +105,7 @@ void execute_command(char *args[], int background) {
     else if (pid == 0) {
         execvp(args[0], args);
         fprintf(stderr, "osh: comando nao encontrado: %s\n", args[0]);
+        exit(1);
     }
     else {
         printf("Processo-filho criado com PID: %d\n", pid);
