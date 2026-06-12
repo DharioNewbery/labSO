@@ -21,22 +21,15 @@ void add_history(char command[]) {
  
 void show_history() {
     int start;
-    int i;
-    int index;
  
     if (history_count == 0) {
         return;
     }
  
-    if (history_count < HISTORY_SIZE) {
-        start = 1;
-    } else {
-        start = history_count - HISTORY_SIZE + 1;
-    }
+    start = history_count % HISTORY_SIZE + 1;
  
-    for (i = history_count; i >= start; i--) {
-        index = (i - 1) % HISTORY_SIZE;
-        printf("%d %s\n", i, history[index]);
+    for (int i = start; i > 0; i--) {
+        printf("%d %s\n", i, history[i]);
     }
 }
  
@@ -108,7 +101,7 @@ void execute_command(char *args[], int background) {
         exit(1);
     }
     else {
-        printf("[Processo-filho criado com PID: %d]\n", pid);
+        printf("Processo-filho criado com PID: %d\n", pid);
         if (!background) {
             wait(NULL);
         }
@@ -139,16 +132,6 @@ int main(void) {
  
         if (strcmp(input, "exit") == 0) {
             should_run = 0;
-            continue;
-        }
- 
-        if (strcmp(input, "ajuda") == 0) {
-            printf("--- Mini-Shell UNIX (Comandos Internos) ---\n");
-            printf("exit    - Encerra o mini-shell\n");
-            printf("history - Exibe o historico de comandos\n");
-            printf("ajuda   - Exibe esta tela de ajuda\n");
-            printf("!!      - Executa novamente o ultimo comando\n");
-            printf("!N      - Executa o comando de numero N no historico\n");
             continue;
         }
  
@@ -192,7 +175,17 @@ int main(void) {
             show_history();
             continue;
         }
-        
+ 
+        if (strcmp(input, "ajuda") == 0) {
+            printf("--- Mini-Shell UNIX (Comandos Internos) ---\n");
+            printf("exit    - Encerra o mini-shell\n");
+            printf("history - Exibe o historico de comandos\n");
+            printf("ajuda   - Exibe esta tela de ajuda\n");
+            printf("!!      - Executa novamente o ultimo comando\n");
+            printf("!N      - Executa o comando de numero N no historico\n");
+            continue;
+        }
+ 
         add_history(input);
         strcpy(input_copy, input);
         background = parse_command(input_copy, args);
