@@ -104,7 +104,7 @@ void execute_command(char *args[], int background) {
     }
     else if (pid == 0) {
         execvp(args[0], args);
-        perror("Erro ao executar comando");
+        fprintf(stderr, "osh: comando nao encontrado: %s\n", args[0]);
         exit(1);
     }
     else {
