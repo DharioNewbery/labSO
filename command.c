@@ -34,8 +34,8 @@ void show_history() {
         start = history_count % HISTORY_SIZE + 1;
     }
  
-    for (int i = start; i > 0; i--) {
-        index = i;
+    for (i = history_count; i >= start; i--) {
+        index = (i - 1) % HISTORY_SIZE;
         printf("%d %s\n", i, history[index]);
     }
 }
