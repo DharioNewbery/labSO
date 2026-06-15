@@ -54,7 +54,7 @@ void printer(int sem) {
     while (true) {
         system("clear");
         for (int i = 0; i < N; i++) {
-            printf("%d -> "get_semaphore_value(sem, i));
+            printf("%d -> ", get_semaphore_value(sem, i));
         }
         printf("\n");
         usleep(50);
