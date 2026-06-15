@@ -76,7 +76,7 @@ int main() {
     }
 
     if (fork() == 0) {
-        philosopher(i, sem);
+        printer(sem);
         exit(0);
     }
 
